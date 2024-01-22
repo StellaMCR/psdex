@@ -1,5 +1,7 @@
 Desafio Técnico DexPay
    
+   # Enunciado original
+
    O candidato devera projetar um Front-End na tecnologia React, utilizando ferramentas e bibliotecas a sua escolha, onde ele deverá consumir uma Api (exemplo moviedb ou pokeapi), e realizar os seguintes requisitos:
 
    - Montar uma tela com a listagem de pokemons ou filmes
@@ -14,4 +16,17 @@ Desafio Técnico DexPay
    - https://pokeapi.co/
 
 
-Prazo de entrega: 23/01/24
+   Prazo de entrega: 23/01/24
+
+   # API escolhida
+   Jikan API (4.0.0)
+   https://docs.api.jikan.moe/
+
+   
+   ## Listagem de animes
+   A tela de listagem mostrará a primeira página da lista de animes, permitindo a busca por nome parcial
+
+   ## Detalhes de animes
+   
+   A tela de detalhes exibirá as seguintes informações de um anime selecionado:
+   Sinopse, rating, status, Título (padrão e japonês) e trailer
