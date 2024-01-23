@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Avatar, Layout, List as ListAnt, Typography, Input, Spin, Pagination } from 'antd'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { PAGE_SIZE, getAnimesList } from './getAnimesList';
 import { IAnimeListItem, IPagination } from './types';
 
@@ -31,6 +31,10 @@ function List() {
     searchAnimeByName(nameToSearchFor, page)
   }
 
+  const goToDetails = (id: number) => {
+    
+  }
+
   useEffect(() => {
     searchAnimeByName()
   }, [])
@@ -49,19 +53,22 @@ function List() {
           <Spin tip="Loading" size="large"/>
         :
         <ListAnt
-        itemLayout="horizontal"
-        dataSource={data}
-        renderItem={(item) => (
-          <ListAnt.Item key={item.id}>
-            <ListAnt.Item.Meta
-              avatar={<Avatar src={item.imageUrl} />}
-              title={item.title}
-              description={`${item.rating}`}
-              />
+          itemLayout="horizontal"
+          dataSource={data}
+          renderItem={(item) => (
+            <ListAnt.Item 
+              key={item.id}
+              actions={[<Link to={`animes/${item.id}`}>Ver detalhes</Link>]}
+              >
+                <ListAnt.Item.Meta
+                  avatar={<Avatar src={item.imageUrl} />}
+                  title={item.title}
+                  description={`${item.rating}`}
+                  />
             </ListAnt.Item>
-            )}
-            />
-          }
+          )}
+          />
+        }
           <Pagination 
             current={pagination.currentPage} 
             total={pagination.total}
