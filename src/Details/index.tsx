@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Image, Layout, Skeleton, Typography, Grid, Space, Card } from 'antd'
+import { Image, Layout, Typography, Grid, Space, Card, Flex } from 'antd'
 import { Link, useParams } from 'react-router-dom'
 import { getAnimesById } from './getAnimeById';
 import { IAnimeDetails } from './types';
@@ -9,7 +9,7 @@ import ReactPlayer from 'react-player';
 import { spaceDesktopStyle } from '../List/listStyles';
 
 const { Content } = Layout;
-const { Title, Text, Paragraph} = Typography;
+const { Title, Paragraph} = Typography;
 const { useBreakpoint } = Grid
 
 function Details() {
@@ -43,27 +43,28 @@ function Details() {
       </Link>
 
       <Space 
-      direction={!screen.md ? 'vertical' : 'horizontal' }
+      direction={'vertical'}
       style={!screen.md ? spaceMobileStyle : spaceDesktopStyle}>
-        <Space direction={!screen.md ? 'vertical' : 'horizontal' }>
-         <Card 
+        <Card 
          bordered 
          loading={loading}
          style={imageCardStyle}
          >
-          <Image
+         <Space direction={!screen.md ? 'vertical' : 'horizontal' }>
+        <Image
               width={'400px'}
               src={data?.imageUrl}
               fallback={NOT_FOUND_IMAGE}
               />
-         </Card>
-         <Card bordered loading={loading}>
+         <Flex vertical>
           {data?.japaneseTitle && <Title level={3}>{data.japaneseTitle}</Title>}
           {data?.title && <Title level={4}>{data.title}</Title>}
           {data?.rating && <Title level={5}>{data.rating}</Title>}
           {data?.synopsis && <Paragraph>{data.synopsis}</Paragraph>}
-         </Card>
+         </Flex>
           </Space>
+         </Card>
+        
          {data?.trailerUrl && 
         <Card bordered loading={loading}>
             <ReactPlayer url={data.trailerUrl} width={'100%'}/>

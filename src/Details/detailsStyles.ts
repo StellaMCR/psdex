@@ -8,7 +8,6 @@ export const imageCardStyle: React.CSSProperties = {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    backgroundColor: 'coral'
 };
 
 
