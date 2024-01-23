@@ -27,6 +27,9 @@ Desafio Técnico DexPay
    A tela de listagem mostrará a primeira página da lista de animes, permitindo a busca por nome parcial
 
    ## Detalhes de animes
-   
    A tela de detalhes exibirá as seguintes informações de um anime selecionado:
-   Sinopse, rating, status, Título (padrão e japonês) e trailer
+   Sinopse, classificação indicativa, status, título (padrão e japonês) e trailer
+
+   ## Rodando o projeto
+   npm i
+   npm run dev

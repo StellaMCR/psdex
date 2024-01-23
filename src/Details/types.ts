@@ -1,4 +1,4 @@
-export interface AnimeDetailsType {
+export interface IAnimeDetails {
     title: string,
     japaneseTitle: string,
     synopsis: string,

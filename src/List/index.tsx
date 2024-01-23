@@ -1,15 +1,18 @@
 import { useEffect, useState } from 'react'
-import { Avatar, Layout, List as ListAnt, Typography, Input, Spin, Pagination } from 'antd'
+import { Avatar, Layout, List as ListAnt, Typography, Input, Spin, Pagination, Space, Grid } from 'antd'
 import { Link } from 'react-router-dom'
 import { PAGE_SIZE, getAnimesList } from './getAnimesList';
 import { IAnimeListItem, IPagination } from './types';
+import { listContentStyle, spaceDesktopStyle, spaceMobileStyle } from './listStyles';
 
-const { Search } = Input;
-const { Content } = Layout;
-const { Title } = Typography;
+const { Search } = Input
+const { Content } = Layout
+const { Title } = Typography
+const { useBreakpoint } = Grid
 
 function List() {
   
+  const screen = useBreakpoint()
   const [data, setData] = useState<IAnimeListItem[]>([])
   const [pagination, setPagination] = useState<IPagination>({
     currentPage: 1,
@@ -31,18 +34,18 @@ function List() {
     searchAnimeByName(nameToSearchFor, page)
   }
 
-  const goToDetails = (id: number) => {
-    
-  }
-
   useEffect(() => {
     searchAnimeByName()
   }, [])
   
 
   return (
-      <Content>
-        <Title>Lista de Animes</Title>
+      <Content style={listContentStyle}>
+        <Title>Animes List</Title>
+        <Space 
+        direction='vertical'
+        style={!screen.md ? spaceMobileStyle : spaceDesktopStyle}
+        >
         <Search 
         placeholder='Pesquise pelo nome do anime' 
         onSearch={(name) => {
@@ -50,33 +53,41 @@ function List() {
           setNameToSearchFor(name)
           }}/>
         { loading ? 
-          <Spin tip="Loading" size="large"/>
-        :
-        <ListAnt
-          itemLayout="horizontal"
-          dataSource={data}
-          renderItem={(item) => (
-            <ListAnt.Item 
+          <Space>
+            <Spin tip="Loading" size="large"/>
+          </Space>
+            :
+            <>
+            <ListAnt
+            itemLayout="horizontal"
+            bordered
+            dataSource={data}
+            renderItem={(item) => (
+              <ListAnt.Item 
               key={item.id}
               actions={[<Link to={`animes/${item.id}`}>Ver detalhes</Link>]}
               >
-                <ListAnt.Item.Meta
-                  avatar={<Avatar src={item.imageUrl} />}
-                  title={item.title}
-                  description={`${item.rating}`}
-                  />
-            </ListAnt.Item>
-          )}
-          />
-        }
-          <Pagination 
-            current={pagination.currentPage} 
-            total={pagination.total}
-            pageSize={PAGE_SIZE}
-            onChange={onChangePage}
-            showSizeChanger={false}
-            showTotal={(total) => `Total de ${total} items`}
+                  <ListAnt.Item.Meta
+                    avatar={<Avatar src={item.imageUrl} />}
+                    title={item.title}
+                    description={`${item.rating}`}
+                    />
+              </ListAnt.Item>
+            )}
             />
+            
+            <Pagination 
+              current={pagination.currentPage} 
+              total={pagination.total}
+              pageSize={PAGE_SIZE}
+              onChange={onChangePage}
+              showSizeChanger={false}
+              showTotal={(total) => `Total ${total}`}
+              responsive
+              />
+            </>
+        }
+          </Space>
       </Content>
   )
 }
