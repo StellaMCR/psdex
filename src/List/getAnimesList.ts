@@ -1,7 +1,9 @@
 import axios from "axios";
 import { IAnimeListItem, IPagination } from "./types";
 
-export async function getAnimesList(name: string, page?: number): Promise<{
+export const PAGE_SIZE = 10
+
+export async function getAnimesList(name?: string, page?: number): Promise<{
   data: IAnimeListItem[];
   pagination: IPagination;
 }>{
@@ -11,7 +13,7 @@ export async function getAnimesList(name: string, page?: number): Promise<{
       params: {
         sfw: true, //Garantindo que resultados sejam adequados para ambiente de trabalho
         unaproved: false, //Restringindo resultados aos aprovados pelo MyAnimeList
-        limit: 10, //Limitando tamanho da página
+        limit: PAGE_SIZE,
         page: page,
         q: name,
       }
