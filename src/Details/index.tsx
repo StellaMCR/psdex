@@ -4,7 +4,9 @@ import { Link, useParams } from 'react-router-dom'
 import { getAnimesById } from './getAnimeById';
 import { IAnimeDetails } from './types';
 import { NOT_FOUND_IMAGE } from '../Assets/notefoundimage';
-import { detailsContentStyle } from './detailsStyles';
+import { detailsContentStyle, imageCardStyle, spaceMobileStyle } from './detailsStyles';
+import ReactPlayer from 'react-player';
+import { spaceDesktopStyle } from '../List/listStyles';
 
 const { Content } = Layout;
 const { Title, Text, Paragraph} = Typography;
@@ -40,10 +42,17 @@ function Details() {
         </Space>
       </Link>
 
-      <Space direction='vertical'>
+      <Space 
+      direction={!screen.md ? 'vertical' : 'horizontal' }
+      style={!screen.md ? spaceMobileStyle : spaceDesktopStyle}>
         <Space direction={!screen.md ? 'vertical' : 'horizontal' }>
-         <Card bordered loading={loading}>
+         <Card 
+         bordered 
+         loading={loading}
+         style={imageCardStyle}
+         >
           <Image
+              width={'400px'}
               src={data?.imageUrl}
               fallback={NOT_FOUND_IMAGE}
               />
@@ -57,7 +66,7 @@ function Details() {
           </Space>
          {data?.trailerUrl && 
         <Card bordered loading={loading}>
-            <Text>{data.trailerUrl}</Text>
+            <ReactPlayer url={data.trailerUrl} width={'100%'}/>
         </Card>
       }
       </Space>
